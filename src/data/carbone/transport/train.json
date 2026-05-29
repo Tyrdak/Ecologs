@@ -1,0 +1,117 @@
+{
+  "transport . train": {
+    "DLUO": "01/06/2026",
+    "titre": "Train",
+    "description": "TGV, TER...",
+    "icônes": "🚄",
+    "formule": {
+      "variations": [
+        {
+          "si": {
+            "est défini": "train . usager"
+          },
+          "alors": {
+            "somme": [
+              "train . km * impact par km"
+            ]
+          }
+        },
+        {
+          "sinon": "km par défaut * impact par km"
+        }
+      ]
+    },
+    "note": "Cette question fait désormais partie de la mosaïque \"Transports en commun\".\n"
+  },
+  "transport . train . usager": {
+    "question": "Utilisez-vous le train pour vos déplacements ?"
+  },
+  "transport . train . impact par km": {
+    "formule": {
+      "somme": [
+        "proportion TGV * TGV",
+        "proportion TER * TER",
+        "proportion intercités * intercités"
+      ]
+    },
+    "unité": "kgCO2e/km",
+    "note": "Les différents types de trains ont des impacts carbone par passager par kilomètres différents.\nNous calculons une moyenne pondérée en proportion du nombre total de kilomètres parcourus dans chaque type de train au niveau national.\nSource : [Autorité de régulation des transports](https://www.autorite-transports.fr/wp-content/uploads/2023/06/bilan-ferroviaire-2022-a-mi-2023.pdf)\n\n![Répartition Passagers.km](https://github.com/incubateur-ademe/nosgestesclimat/assets/55186402/4bbdf823-8e9a-4570-90da-77ff8af05b14)\n"
+  },
+  "transport . train . TGV": {
+    "formule": 0.00293,
+    "unité": "kgCO2e/km",
+    "note": "Facteur d'émission issu de la Base Empreinte (TGV/2022)\n"
+  },
+  "transport . train . TER": {
+    "formule": 0.0277,
+    "unité": "kgCO2e/km",
+    "note": "Facteur d'émission issu de la Base Empreinte (TER/2022/Traction moyenne)\n"
+  },
+  "transport . train . intercités": {
+    "formule": 0.0075,
+    "unité": "kgCO2e/km",
+    "note": "Facteur d'émission issu de la Base Empreinte (Intercités/2022)\n"
+  },
+  "transport . train . proportion TGV": {
+    "formule": "passagers km TGV / total passagers km",
+    "note": "Chiffres issus de l'[autorité de régulation des transports](https://www.autorite-transports.fr/wp-content/uploads/2023/06/bilan-ferroviaire-2022-a-mi-2023.pdf).\n"
+  },
+  "transport . train . proportion TER": {
+    "formule": "passagers km TER / total passagers km",
+    "note": "Chiffres issus de l'[autorité de régulation des transports](https://www.autorite-transports.fr/wp-content/uploads/2023/06/bilan-ferroviaire-2022-a-mi-2023.pdf).\n"
+  },
+  "transport . train . proportion intercités": {
+    "formule": "passagers km intercités / total passagers km",
+    "note": "Chiffres issus de l'[autorité de régulation des transports](https://www.autorite-transports.fr/wp-content/uploads/2023/06/bilan-ferroviaire-2022-a-mi-2023.pdf).\n"
+  },
+  "transport . train . total passagers km": {
+    "formule": {
+      "somme": [
+        "passagers km TGV",
+        "passagers km TER",
+        "passagers km intercités"
+      ]
+    },
+    "note": "Chiffres issus de l'[autorité de régulation des transports](https://www.autorite-transports.fr/wp-content/uploads/2023/06/bilan-ferroviaire-2022-a-mi-2023.pdf).\nOn omet ici les trajets en RER et transilien.\n"
+  },
+  "transport . train . passagers km TGV": {
+    "formule": "54 + 7",
+    "note": "Chiffres issus de l'[autorité de régulation des transports](https://www.autorite-transports.fr/wp-content/uploads/2023/06/bilan-ferroviaire-2022-a-mi-2023.pdf).\nOn omet ici les trajets en RER et transilien.\n"
+  },
+  "transport . train . passagers km TER": {
+    "formule": 19,
+    "note": "Chiffres issus de l'[autorité de régulation des transports](https://www.autorite-transports.fr/wp-content/uploads/2023/06/bilan-ferroviaire-2022-a-mi-2023.pdf).\nOn omet ici les trajets en RER et transilien.\n"
+  },
+  "transport . train . passagers km intercités": {
+    "formule": "3 + 0.5",
+    "note": "Chiffres issus de l'[autorité de régulation des transports](https://www.autorite-transports.fr/wp-content/uploads/2023/06/bilan-ferroviaire-2022-a-mi-2023.pdf).\nOn omet ici les trajets en RER et transilien.\n"
+  },
+  "transport . train . km": {
+    "applicable si": {
+      "toutes ces conditions": [
+        {
+          "est défini": "train . usager"
+        },
+        "train . usager"
+      ]
+    },
+    "question": "Combien de kilomètres parcourez-vous en train par an ?",
+    "description": "Les suggestions sont sur la base d'un aller-retour.",
+    "suggestions": {
+      "traversée d'une région": 300,
+      "Paris ⇄ Lyon": 800,
+      "Brest ⇄ Nice": 2400,
+      "💳 grand voyageur": 10000,
+      "💳 grand voyageur plus ultra": 25000
+    },
+    "unité": "km",
+    "plancher": 0,
+    "plafond": 99999,
+    "par défaut": "km par défaut"
+  },
+  "transport . train . km par défaut": {
+    "valeur": "107000000000 km / population",
+    "unité": "km",
+    "note": "Selon les [\"Chiffres clés des transports\" du SDES](https://www.statistiques.developpement-durable.gouv.fr/edition-numerique/chiffres-cles-transports/fr/16-transport-ferroviaire-de-voyageurs), le transport ferroviaire (hors Eurotunnel) représente 107 milliards de passagers-km en 2023. Ce chiffre prend vraisemblablement en compte les trajets effectués par des voyageurs étrangers mais on peut néanmoins utiliser ce chiffre pour obtenir une bonne approximation de la distance moyenne parcourue en train par français.\n"
+  }
+}
