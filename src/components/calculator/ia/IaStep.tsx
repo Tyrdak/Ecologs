@@ -8,6 +8,11 @@ export interface IaInputs {
     nbTokens: number;
 }
 
+interface ProviderOption {
+    id: string;
+    label: string;
+}
+
 interface ModelOption {
     provider: string;
     name: string;
@@ -47,7 +52,7 @@ function StepLabel({ n, label, active }: { n: number; label: string; active: boo
 }
 
 export default function IaStep({ value, onChange }: Props) {
-    const [providers, setProviders] = useState<string[]>([]);
+    const [providers, setProviders] = useState<ProviderOption[]>([]);
     const [models, setModels] = useState<ModelOption[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -55,9 +60,8 @@ export default function IaStep({ value, onChange }: Props) {
         fetch("/api/ia/models")
             .then(r => r.json())
             .then(d => {
+                setProviders(d.providers);
                 setModels(d.models);
-                const unique = [...new Set<string>(d.models.map((m: ModelOption) => m.provider))].sort();
-                setProviders(unique);
             })
             .finally(() => setLoading(false));
     }, []);
@@ -103,7 +107,7 @@ export default function IaStep({ value, onChange }: Props) {
                     >
                         <option value="">Sélectionner un provider…</option>
                         {providers.map(p => (
-                            <option key={p} value={p}>{p}</option>
+                            <option key={p.id} value={p.id}>{p.label}</option>
                         ))}
                     </select>
                 </div>
