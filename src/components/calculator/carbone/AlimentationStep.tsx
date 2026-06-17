@@ -157,7 +157,7 @@ export default function AlimentationStep({ value, onChange }: Props) {
             {/* Petit déjeuner */}
             <section>
                 <RadioGroup
-                    label="🥐  Petit déjeuner habituel"
+                    label="Petit déjeuner habituel"
                     options={PETIT_DEJ_OPTIONS}
                     value={value.petitDejeuner}
                     onChange={v => onChange({ ...value, petitDejeuner: v })}
