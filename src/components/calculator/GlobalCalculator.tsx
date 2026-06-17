@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Stepper from "./Stepper";
 import StepNav from "./StepNav";
 import TransportStep from "./carbone/TransportStep";
