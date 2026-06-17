@@ -25,7 +25,7 @@ const STEPS = [
 
 export default function IaMethodologie() {
     return (
-        <section className="py-20 px-6" style={{ background: "var(--bg-alt)" }} aria-labelledby="ia-method-title">
+        <section className="py-20 px-6" style={{ background: "var(--bg)" }} aria-labelledby="ia-method-title">
             <div className="max-w-4xl mx-auto">
                 <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--green-mid)" }}>
                     Empreinte de l&apos;intelligence artificielle
