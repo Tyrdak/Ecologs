@@ -89,7 +89,7 @@ export default function IaStep({ value, onChange }: Props) {
             <div className="flex items-center gap-3 mb-6">
                 <Cpu size={20} style={{ color: "var(--green-mid)" }} />
                 <h3 style={{ fontFamily: "Fraunces, serif", fontSize: "1.4rem", fontWeight: 600 }}>
-                    Usage de l'IA
+                    Usage de l&apos;IA
                 </h3>
             </div>
 

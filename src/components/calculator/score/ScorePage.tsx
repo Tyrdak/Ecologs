@@ -70,7 +70,7 @@ export default function ScorePage({ carboneResult, iaResult, onRestart }: Props)
                     <TrendingDown size={20} style={{ color: "var(--green-mid)", flexShrink: 0 }} />
                     <div className="text-sm" style={{ color: "var(--text)" }}>
                         Vous êtes à <strong>{ratioMoyenne}%</strong> de la moyenne française ({moyenneTonnes.toFixed(1)} t).
-                        L'objectif Accord de Paris est de <strong>{objectifTonnes.toFixed(0)} t</strong>.
+                        L&apos;objectif Accord de Paris est de <strong>{objectifTonnes.toFixed(0)} t</strong>.
                     </div>
                 </div>
 

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Stepper from "./Stepper";
 import StepNav from "./StepNav";
 import TransportStep from "./carbone/TransportStep";
@@ -20,21 +20,22 @@ interface Props {
 
 export default function GlobalCalculator({ onBack }: Props) {
     const [step, setStep] = useState(0);
-    const [carbone, setCarbone] = useState<CarboneInputs>(DEFAULT_INPUTS);
-    const [ia, setIa] = useState<IaInputs>(DEFAULT_IA);
-    const [iaResult, setIaResult] = useState<{ totalKgCo2e: number } | null>(null);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
+    const [carbone, setCarbone] = useState<CarboneInputs>(() => {
         try {
             const saved = localStorage.getItem(CACHE_KEY);
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                if (parsed.carbone) setCarbone(parsed.carbone);
-                if (parsed.ia) setIa(parsed.ia);
-            }
+            if (saved) return JSON.parse(saved).carbone ?? DEFAULT_INPUTS;
         } catch {}
-    }, []);
+        return DEFAULT_INPUTS;
+    });
+    const [ia, setIa] = useState<IaInputs>(() => {
+        try {
+            const saved = localStorage.getItem(CACHE_KEY);
+            if (saved) return JSON.parse(saved).ia ?? DEFAULT_IA;
+        } catch {}
+        return DEFAULT_IA;
+    });
+    const [iaResult, setIaResult] = useState<{ totalKgCo2e: number } | null>(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         localStorage.setItem(CACHE_KEY, JSON.stringify({ carbone, ia }));

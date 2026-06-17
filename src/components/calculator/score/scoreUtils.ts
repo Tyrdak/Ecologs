@@ -1,6 +1,5 @@
 // Score sur 100 : 100 = objectif Accord de Paris, 0 = 2× moyenne française
 const MAX_CARBONE_KG = 19800; // 2× moyenne française → score 0
-const REF_OBJECTIF_KG = 2000; // objectif 2°C → score 100
 
 export function scoreCarbone(kgCo2e: number): number {
     return Math.max(0, Math.min(100, Math.round((1 - kgCo2e / MAX_CARBONE_KG) * 100)));
