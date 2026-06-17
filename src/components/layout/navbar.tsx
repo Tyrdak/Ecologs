@@ -2,7 +2,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight, Leaf } from "lucide-react";
-import LocaleSwitcher from "@/src/components/ui/LocaleSwitcher";
+import dynamic from "next/dynamic";
+
+const LocaleSwitcher = dynamic(() => import("@/src/components/ui/LocaleSwitcher"), { ssr: false });
 
 interface Props {
     onStart?: () => void;
