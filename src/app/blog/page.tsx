@@ -48,7 +48,7 @@ export default function BlogPage() {
                                 style={{ color: "var(--green-deep)" }}
                                 aria-label={`Lire l'article : ${a.title}`}
                             >
-                                Lire l'article <ArrowRight size={14} aria-hidden="true" />
+                                Lire l&apos;article <ArrowRight size={14} aria-hidden="true" />
                             </Link>
                         </article>
                     ))}

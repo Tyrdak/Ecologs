@@ -20,7 +20,7 @@ export default function MethodologieHero() {
                 Comment calculons-nous votre empreinte&nbsp;?
             </h1>
             <p className="text-base opacity-80 max-w-xl mx-auto" style={{ lineHeight: 1.7 }}>
-                Nos calculs s'appuient sur des données publiques vérifiées (ADEME, Boavizta, EcoLogits)
+                Nos calculs s&apos;appuient sur des données publiques vérifiées (ADEME, Boavizta, EcoLogits)
                 et une méthodologie ouverte et reproductible.
             </p>
         </section>

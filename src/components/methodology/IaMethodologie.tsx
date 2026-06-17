@@ -20,7 +20,7 @@ const STEPS = [
         icon: Globe,
         title: "4. Mix énergétique & émissions",
         desc: "Intensité carbone du pays du provider (gCO₂/kWh) × énergie consommée = impact usage. Total = fabrication amortie + usage. Annualisé par requêtes/jour × 365.",
-    },
+    }
 ];
 
 export default function IaMethodologie() {
@@ -28,7 +28,7 @@ export default function IaMethodologie() {
         <section className="py-20 px-6" style={{ background: "var(--bg-alt)" }} aria-labelledby="ia-method-title">
             <div className="max-w-4xl mx-auto">
                 <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "var(--green-mid)" }}>
-                    Empreinte de l'intelligence artificielle
+                    Empreinte de l&apos;intelligence artificielle
                 </p>
                 <h2
                     id="ia-method-title"
@@ -37,7 +37,7 @@ export default function IaMethodologie() {
                     Du GPU au gramme de CO₂
                 </h2>
                 <p className="text-sm mb-10" style={{ color: "var(--text-muted)", maxWidth: "580px", lineHeight: 1.7 }}>
-                    Méthodologie inspirée d'<strong>EcoLogits</strong> et des travaux de <strong>Boavizta</strong>.
+                    Méthodologie inspirée d&apos;<strong>EcoLogits</strong> et des travaux de <strong>Boavizta</strong>.
                     Chaque requête passe par 4 étapes de calcul indépendantes.
                 </p>
                 <div className="grid md:grid-cols-2 gap-5">
