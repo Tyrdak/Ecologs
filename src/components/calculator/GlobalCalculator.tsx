@@ -12,7 +12,7 @@ import { DEFAULT_INPUTS } from "@/src/core/carbone/types";
 import type { CarboneInputs } from "@/src/core/carbone/types";
 
 const CACHE_KEY = "ecologs_form_v1";
-const DEFAULT_IA: IaInputs = { provider: "", model: "", nbTokens: 500 };
+const DEFAULT_IA: IaInputs = { provider: "", model: "", nbTokens: 500, requestsPerDay: 5 };
 
 interface Props {
     onBack: () => void;
@@ -54,7 +54,9 @@ export default function GlobalCalculator({ onBack }: Props) {
             });
             const data = await res.json();
             if (res.ok) {
-                setIaResult(data);
+                // Annualiser : impact par requête × requêtes/jour × 365
+                const annualKg = data.totalKgCo2e * ia.requestsPerDay * 365;
+                setIaResult({ ...data, totalKgCo2e: annualKg });
             } else {
                 console.error("[IA] Erreur calcul:", data?.error);
             }

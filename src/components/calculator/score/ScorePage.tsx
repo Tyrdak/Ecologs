@@ -48,7 +48,7 @@ export default function ScorePage({ carboneResult, iaResult, onRestart }: Props)
                     <p className="text-sm font-semibold mb-5" style={{ color: "var(--text)" }}>Scores par catégorie</p>
                     <div className="flex justify-around flex-wrap gap-4">
                         <ScoreRing score={sCarbone} label="Carbone" sublabel={`${carboneResult.totalKgCo2e.toFixed(0)} kg`} />
-                        {sIa !== null && <ScoreRing score={sIa} label="IA" sublabel={formatIaKg(iaKg)} />}
+                        {sIa !== null && <ScoreRing score={sIa} label="IA / an" sublabel={formatIaKg(iaKg)} />}
                         <ScoreRing score={sTransport} label="Transport" sublabel={`${carboneResult.transport.kgCo2e.toFixed(0)} kg`} />
                         <ScoreRing score={sAlimentation} label="Alimentation" sublabel={`${carboneResult.alimentation.kgCo2e.toFixed(0)} kg`} />
                         <ScoreRing score={sLogement} label="Logement" sublabel={`${carboneResult.logement.kgCo2e.toFixed(0)} kg`} />

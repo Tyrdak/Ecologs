@@ -23,11 +23,11 @@ export function scoreLogement(kgCo2e: number): number {
     return Math.max(0, Math.min(100, Math.round((1 - kgCo2e / MAX_LOGEMENT) * 100)));
 }
 
-// IA : échelle logarithmique — 0.0001 kg (0.1g) = score 100, 5 kg = score 0
+// IA annuel : log de 0.1 kg/an (score 100) à 500 kg/an (score 0)
 export function scoreIa(kgCo2e: number): number {
     if (kgCo2e <= 0) return 100;
-    const MIN_LOG = Math.log10(0.0001);
-    const MAX_LOG = Math.log10(5);
+    const MIN_LOG = Math.log10(0.1);
+    const MAX_LOG = Math.log10(500);
     const val = Math.log10(kgCo2e);
     return Math.max(0, Math.min(100, Math.round((1 - (val - MIN_LOG) / (MAX_LOG - MIN_LOG)) * 100)));
 }

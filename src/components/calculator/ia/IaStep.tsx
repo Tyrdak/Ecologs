@@ -6,7 +6,14 @@ export interface IaInputs {
     provider: string;
     model: string;
     nbTokens: number;
+    requestsPerDay: number;
 }
+
+const DAILY_PRESETS = [
+    { label: "Légère (1/j)", value: 1 },
+    { label: "Modérée (5/j)", value: 5 },
+    { label: "Intensive (20/j)", value: 20 },
+];
 
 interface ProviderOption {
     id: string;
@@ -92,6 +99,8 @@ export default function IaStep({ value, onChange }: Props) {
                 <StepLabel n={2} label="Modèle" active={!!value.provider} />
                 <ChevronRight size={12} />
                 <StepLabel n={3} label="Requête" active={!!value.model} />
+                <ChevronRight size={12} />
+                <StepLabel n={4} label="Fréquence" active={!!value.model} />
             </div>
 
             <div className="space-y-5">
@@ -169,6 +178,47 @@ export default function IaStep({ value, onChange }: Props) {
                     <div className="flex justify-between text-xs mt-1" style={{ color: "var(--text-muted)" }}>
                         <span>100</span>
                         <span>128 000</span>
+                    </div>
+                </div>
+
+                <div style={{ opacity: value.model ? 1 : 0.4, pointerEvents: value.model ? "auto" : "none" }}>
+                    <div className="flex items-baseline justify-between mb-1.5">
+                        <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+                            4 — Fréquence annuelle
+                        </label>
+                        <span style={{ fontFamily: "Fraunces, serif", fontSize: "1.1rem", fontWeight: 600, color: "var(--green-deep)" }}>
+                            {(value.requestsPerDay * 365).toLocaleString("fr-FR")} req/an
+                        </span>
+                    </div>
+                    <div className="flex gap-2 mb-3 flex-wrap">
+                        {DAILY_PRESETS.map(p => (
+                            <button
+                                key={p.value}
+                                onClick={() => set({ requestsPerDay: p.value })}
+                                className="text-xs px-3 py-1.5 rounded-full"
+                                style={{
+                                    background: value.requestsPerDay === p.value ? "var(--green-deep)" : "var(--bg-alt)",
+                                    color: value.requestsPerDay === p.value ? "white" : "var(--text-muted)",
+                                    border: "1px solid var(--border)",
+                                }}
+                            >
+                                {p.label}
+                            </button>
+                        ))}
+                    </div>
+                    <input
+                        type="range"
+                        value={value.requestsPerDay}
+                        min={1}
+                        max={100}
+                        step={1}
+                        onChange={e => set({ requestsPerDay: parseInt(e.target.value) })}
+                        className="w-full"
+                        style={{ accentColor: "var(--green-deep)" }}
+                    />
+                    <div className="flex justify-between text-xs mt-1" style={{ color: "var(--text-muted)" }}>
+                        <span>1/jour</span>
+                        <span>100/jour</span>
                     </div>
                 </div>
             </div>
