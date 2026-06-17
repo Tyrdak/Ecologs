@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import modelsData from "@/src/data/ia/models.json";
 
-type RawParams = number | { min?: number; max?: number } | null;
+type RawParams = number | { min?: number; max?: number; total?: number } | null;
 
 interface RawModel {
     type: string;
@@ -23,6 +23,9 @@ const PROVIDER_LABELS: Record<string, string> = {
 function parseParams(p: RawParams): number {
     if (!p) return 0;
     if (typeof p === "number") return p;
+    // { total, active: {min, max} } — format Anthropic/MoE
+    if ("total" in p && p.total) return p.total;
+    // { min, max } — format simple
     return p.max ?? p.min ?? 0;
 }
 
