@@ -1,30 +1,39 @@
 import { NextResponse } from "next/server";
 import modelsData from "@/src/data/ia/models.json";
 
+type RawParams = number | { min?: number; max?: number } | null;
+
 interface RawModel {
     type: string;
     provider: string;
     name: string;
-    architecture: { type: string; parameters: number };
+    architecture: { type: string; parameters: RawParams };
     deployment: { tps: number | null };
 }
 
-// Noms affichables pour les providers présents dans models.json
 const PROVIDER_LABELS: Record<string, string> = {
+    anthropic:       "Anthropic",
     cohere:          "Cohere",
     google_genai:    "Google",
     huggingface_hub: "Hugging Face",
     mistralai:       "Mistral AI",
+    openai:          "OpenAI",
 };
+
+function parseParams(p: RawParams): number {
+    if (!p) return 0;
+    if (typeof p === "number") return p;
+    return p.max ?? p.min ?? 0;
+}
 
 export async function GET() {
     const models = (modelsData as { models: RawModel[] }).models
-        .filter((m) => m.type === "model" && m.architecture?.parameters > 0)
+        .filter((m) => m.type === "model" && parseParams(m.architecture?.parameters) > 0)
         .map((m) => ({
             provider: m.provider,
             providerLabel: PROVIDER_LABELS[m.provider] ?? m.provider,
             name: m.name,
-            parametersBillion: m.architecture.parameters,
+            parametersBillion: parseParams(m.architecture.parameters),
             type: m.architecture.type,
             tps: m.deployment?.tps ?? null,
         }));

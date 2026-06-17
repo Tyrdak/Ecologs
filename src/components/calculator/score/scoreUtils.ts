@@ -23,12 +23,20 @@ export function scoreLogement(kgCo2e: number): number {
     return Math.max(0, Math.min(100, Math.round((1 - kgCo2e / MAX_LOGEMENT) * 100)));
 }
 
-// IA : 0.01 kgCO2e par requête → score 0 (très gourmand)
-const MAX_IA_KG = 0.01;
-
+// IA : échelle logarithmique — 0.0001 kg (0.1g) = score 100, 5 kg = score 0
 export function scoreIa(kgCo2e: number): number {
     if (kgCo2e <= 0) return 100;
-    return Math.max(0, Math.min(100, Math.round((1 - kgCo2e / MAX_IA_KG) * 100)));
+    const MIN_LOG = Math.log10(0.0001);
+    const MAX_LOG = Math.log10(5);
+    const val = Math.log10(kgCo2e);
+    return Math.max(0, Math.min(100, Math.round((1 - (val - MIN_LOG) / (MAX_LOG - MIN_LOG)) * 100)));
+}
+
+// Formate un impact IA en unité lisible
+export function formatIaKg(kgCo2e: number): string {
+    if (kgCo2e >= 1) return `${kgCo2e.toFixed(2)} kg`;
+    if (kgCo2e >= 0.001) return `${(kgCo2e * 1000).toFixed(1)} g`;
+    return `${(kgCo2e * 1_000_000).toFixed(0)} µg`;
 }
 
 export function scoreGlobal(carboneKg: number, iaKg: number): number {
