@@ -81,4 +81,4 @@ npm run dev
 
 ## Licence
 
-Ce projet est distribué sous la licence MIT.
+Ce projet est distribué sous la [licence MIT](LICENSE).
