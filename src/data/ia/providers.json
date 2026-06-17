@@ -1,0 +1,10 @@
+{
+    "openai": { "country": "US", "pue": 1.2 },
+    "anthropic": { "country": "US", "pue": 1.2 },
+    "mistralai": { "country": "SE", "pue": 1.3 },
+    "google": { "country": "US", "pue": 1.1 },
+    "meta-llama": { "country": "US", "pue": 1.2 },
+    "cohere": { "country": "US", "pue": 1.2 },
+    "huggingface_hub": { "country": "US", "pue": 1.2 },
+    "default": { "country": "US", "pue": 1.3 }
+}
