@@ -3,11 +3,13 @@ import { RotateCcw, TrendingDown } from "lucide-react";
 import type { CarboneResult } from "@/src/core/carbone/types";
 import ScoreBreakdown from "./ScoreBreakdown";
 import ScoreComparisons from "./ScoreComparisons";
+import ScoreRing from "./ScoreRing";
+import {
+    scoreGlobal, scoreCarbone, scoreIa,
+    scoreTransport, scoreAlimentation, scoreLogement,
+} from "./scoreUtils";
 
-interface IaResult {
-    totalKgCo2e: number;
-}
-
+interface IaResult { totalKgCo2e: number; }
 interface Props {
     carboneResult: CarboneResult;
     iaResult: IaResult | null;
@@ -21,17 +23,35 @@ export default function ScorePage({ carboneResult, iaResult, onRestart }: Props)
     const objectifTonnes = carboneResult.objectif2Degres / 1000;
     const ratioMoyenne = Math.round((totalTonnes / moyenneTonnes) * 100);
 
+    const sGlobal = scoreGlobal(carboneResult.totalKgCo2e, iaKg);
+    const sCarbone = scoreCarbone(carboneResult.totalKgCo2e);
+    const sIa = iaKg > 0 ? scoreIa(iaKg) : null;
+    const sTransport = scoreTransport(carboneResult.transport.kgCo2e);
+    const sAlimentation = scoreAlimentation(carboneResult.alimentation.kgCo2e);
+    const sLogement = scoreLogement(carboneResult.logement.kgCo2e);
+
     return (
         <div className="min-h-screen py-20 px-4" style={{ background: "var(--bg)" }}>
             <div className="max-w-2xl mx-auto space-y-6">
-                <div className="text-center mb-8">
-                    <p className="text-sm font-medium uppercase tracking-wider mb-2" style={{ color: "var(--green-mid)" }}>
+                <div className="text-center">
+                    <p className="text-sm font-medium uppercase tracking-wider mb-4" style={{ color: "var(--green-mid)" }}>
                         Votre résultat
                     </p>
-                    <div style={{ fontFamily: "Fraunces, serif", fontSize: "clamp(3rem, 10vw, 5rem)", fontWeight: 700, color: "var(--green-deep)", lineHeight: 1 }}>
-                        {totalTonnes.toFixed(1)}
+                    <ScoreRing score={sGlobal} label="Score global" sublabel="/100" size="lg" />
+                    <div className="mt-3 text-base" style={{ color: "var(--text-muted)" }}>
+                        {totalTonnes.toFixed(1)} t CO₂e / an
                     </div>
-                    <div className="text-lg" style={{ color: "var(--text-muted)" }}>tonnes CO₂e / an</div>
+                </div>
+
+                <div className="rounded-2xl p-6" style={{ background: "var(--bg-card)", border: "1.5px solid var(--border)" }}>
+                    <p className="text-sm font-semibold mb-5" style={{ color: "var(--text)" }}>Scores par catégorie</p>
+                    <div className="flex justify-around flex-wrap gap-4">
+                        <ScoreRing score={sCarbone} label="Carbone" sublabel={`${carboneResult.totalKgCo2e.toFixed(0)} kg`} />
+                        {sIa !== null && <ScoreRing score={sIa} label="IA" sublabel={`${(iaKg * 1000).toFixed(2)} g`} />}
+                        <ScoreRing score={sTransport} label="Transport" sublabel={`${carboneResult.transport.kgCo2e.toFixed(0)} kg`} />
+                        <ScoreRing score={sAlimentation} label="Alimentation" sublabel={`${carboneResult.alimentation.kgCo2e.toFixed(0)} kg`} />
+                        <ScoreRing score={sLogement} label="Logement" sublabel={`${carboneResult.logement.kgCo2e.toFixed(0)} kg`} />
+                    </div>
                 </div>
 
                 <div className="rounded-2xl p-6" style={{ background: "var(--bg-card)", border: "1.5px solid var(--border)" }}>
@@ -49,7 +69,7 @@ export default function ScorePage({ carboneResult, iaResult, onRestart }: Props)
                     <TrendingDown size={20} style={{ color: "var(--green-mid)", flexShrink: 0 }} />
                     <div className="text-sm" style={{ color: "var(--text)" }}>
                         Vous êtes à <strong>{ratioMoyenne}%</strong> de la moyenne française ({moyenneTonnes.toFixed(1)} t).
-                        L'objectif Accord de Paris est <strong>{objectifTonnes.toFixed(0)} t</strong>.
+                        L'objectif Accord de Paris est de <strong>{objectifTonnes.toFixed(0)} t</strong>.
                     </div>
                 </div>
 
