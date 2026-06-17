@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-78.1%25-blue?logo=typescript)](https://www.typescriptlang.org/) 
+[![Data: Nos Gestes Climat](https://img.shields.io/badge/Data-Nos%20Gestes%20Climat-informational)](https://github.com/incubateur-ademe/nosgestesclimat/tree/main/data/empreinte)
 
 Ecologs est une application permettant d'estimer l'empreinte carbone annuelle d'un utilisateur en décomposant son bilan personnel (Transports, Logement, Alimentation) et en y intégrant un module d'évaluation de l'impact des usages d'IA (LLMs, génération d'images/vidéos, infrastructure cloud).
 
