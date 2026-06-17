@@ -52,8 +52,15 @@ export default function GlobalCalculator({ onBack }: Props) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(ia),
             });
-            if (res.ok) setIaResult(await res.json());
-        } catch {}
+            const data = await res.json();
+            if (res.ok) {
+                setIaResult(data);
+            } else {
+                console.error("[IA] Erreur calcul:", data?.error);
+            }
+        } catch (e) {
+            console.error("[IA] Fetch error:", e);
+        }
         setLoading(false);
         setStep(4);
     }
