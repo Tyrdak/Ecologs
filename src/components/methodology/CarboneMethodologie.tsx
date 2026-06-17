@@ -44,7 +44,7 @@ export default function CarboneMethodologie() {
                     const Icon = s.icon;
                     return (
                         <li key={s.title} className="flex gap-5 rounded-2xl p-6" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-                            <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl" style={{ background: "var(--green-deep)", color: "white" }}>
+                            <div className="shrink-0 flex items-center justify-center w-12 h-12 rounded-xl" style={{ background: "var(--green-deep)", color: "white" }}>
                                 <span className="text-xs font-bold mr-0.5" aria-hidden="true">{i + 1}</span>
                                 <Icon size={16} aria-hidden="true" />
                             </div>
