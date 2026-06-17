@@ -34,7 +34,11 @@ export default function IaStep({ value, onChange }: Props) {
     useEffect(() => {
         fetch("/api/ia/models")
             .then(r => r.json())
-            .then(d => { setProviders(d.providers); setModels(d.models); })
+            .then(d => {
+                setModels(d.models);
+                const unique = [...new Set<string>(d.models.map((m: ModelOption) => m.provider))].sort();
+                setProviders(unique);
+            })
             .finally(() => setLoading(false));
     }, []);
 
@@ -95,9 +99,14 @@ export default function IaStep({ value, onChange }: Props) {
                     </div>
                 )}
                 <div>
-                    <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-muted)" }}>
-                        Tokens par requête
-                    </label>
+                    <div className="flex items-baseline justify-between mb-1.5">
+                        <label className="text-sm font-medium" style={{ color: "var(--text-muted)" }}>
+                            Tokens par requête
+                        </label>
+                        <span style={{ fontFamily: "Fraunces, serif", fontSize: "1.1rem", fontWeight: 600, color: "var(--green-deep)" }}>
+                            {value.nbTokens.toLocaleString("fr-FR")}
+                        </span>
+                    </div>
                     <div className="flex gap-2 mb-3">
                         {PRESETS.map(p => (
                             <button
@@ -115,14 +124,19 @@ export default function IaStep({ value, onChange }: Props) {
                         ))}
                     </div>
                     <input
-                        type="number"
+                        type="range"
                         value={value.nbTokens}
-                        min={1}
-                        max={100000}
-                        onChange={e => set({ nbTokens: parseInt(e.target.value) || 1 })}
-                        className="w-full px-4 py-2.5 rounded-xl text-sm"
-                        style={{ background: "var(--bg-alt)", border: "1px solid var(--border)", color: "var(--text)" }}
+                        min={100}
+                        max={16000}
+                        step={100}
+                        onChange={e => set({ nbTokens: parseInt(e.target.value) })}
+                        className="w-full accent-green-800"
+                        style={{ accentColor: "var(--green-deep)" }}
                     />
+                    <div className="flex justify-between text-xs mt-1" style={{ color: "var(--text-muted)" }}>
+                        <span>100</span>
+                        <span>16 000</span>
+                    </div>
                 </div>
             </div>
         </div>
