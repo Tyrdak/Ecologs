@@ -1,38 +1,28 @@
 "use client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Navbar from "@/src/components/layout/navbar";
 import Footer from "@/src/components/layout/footer";
 import HeroSection from "@/src/components/landing/herosection";
-import CommentCaMarche from "@/src/components/landing/comment-ça-marche";
-import Calculator from "@/src/components/calculator/Calculator";
+import GlobalCalculator from "@/src/components/calculator/GlobalCalculator";
 
 export default function Home() {
-    const [showCalculator, setShowCalculator] = useState(false);
-    const calcRef = useRef<HTMLDivElement>(null);
+    const [showCalc, setShowCalc] = useState(false);
 
-    function handleStart() {
-        setShowCalculator(true);
-        setTimeout(() => {
-            calcRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 60);
+    if (showCalc) {
+        return (
+            <>
+                <Navbar onStart={() => setShowCalc(true)} />
+                <GlobalCalculator onBack={() => setShowCalc(false)} />
+                <Footer />
+            </>
+        );
     }
 
     return (
         <div style={{ background: "var(--bg)" }}>
-            <Navbar onStart={handleStart} />
-
-            {!showCalculator ? (
-                <>
-                    <HeroSection onStart={handleStart} />
-                    <CommentCaMarche />
-                    <Footer />
-                </>
-            ) : (
-                <div ref={calcRef} className="pt-16">
-                    <Calculator onClose={() => setShowCalculator(false)} />
-                    <Footer />
-                </div>
-            )}
+            <Navbar onStart={() => setShowCalc(true)} />
+            <HeroSection onStart={() => setShowCalc(true)} />
+            <Footer />
         </div>
     );
 }
