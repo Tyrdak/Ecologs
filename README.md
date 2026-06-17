@@ -7,7 +7,7 @@ Ecologs est une application permettant d'estimer l'empreinte carbone annuelle d'
 
 ## Table des matières 
 
-- [Fonctionnalités principales](#fonctionnalites-principales)
+- [Fonctionnalités principales](#fonctionnalités-principales)
 
 - [Sources & Rigueur](#sources--rigueur)
 
@@ -15,7 +15,7 @@ Ecologs est une application permettant d'estimer l'empreinte carbone annuelle d'
 
 - [Stack technique](#stack-technique)
 
-- [Installation & Démarrage local](#installation--demarrage-local)
+- [Installation & Démarrage local](#installation--démarrage-local)
 
 - [Licence](#licence) 
 
