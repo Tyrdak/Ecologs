@@ -1,105 +1,84 @@
 # Ecologs - Calculateur d'Empreinte Carbone & Impact IA
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-78.1%25-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-%20-black?logo=next.js&logoColor=white)](https://nextjs.org/)
-[![Vercel](https://img.shields.io/badge/Deploy%20on-Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-78.1%25-blue?logo=typescript)](https://www.typescriptlang.org/) 
 
 Ecologs est une application permettant d'estimer l'empreinte carbone annuelle d'un utilisateur en décomposant son bilan personnel (Transports, Logement, Alimentation) et en y intégrant un module d'évaluation de l'impact des usages d'IA (LLMs, génération d'images/vidéos, infrastructure cloud).
 
----
-
-## Table des matières
+## Table des matières 
 
 - [Fonctionnalités principales](#fonctionnalites-principales)
-- [Sources & Rigueur](#sources--rigueur)
-- [Architecture](#architecture)
-- [Stack technique](#stack-technique)
-- [Installation & Démarrage](#installation--demarrage)
-- [Déploiement](#deploiement)
-- [Contribuer](#contribuer)
-- [Licence](#licence)
 
----
+- [Sources & Rigueur](#sources--rigueur)
+
+- [Architecture](#architecture)
+
+- [Stack technique](#stack-technique)
+
+- [Installation & Démarrage local](#installation--demarrage-local)
+
+- [Licence](#licence) 
 
 ## Fonctionnalités principales
 
-- Calculateur de bilan personnel — questionnaire adaptatif pour estimer l'impact des Transports, du Logement et de l'Alimentation.
-- Module Impact IA — estimation du coût carbone et de la consommation énergétique liée aux usages d'IA et à l'infrastructure cloud.
-- Historique & export — possibilité d'exporter son bilan (CSV/JSON) et de suivre l'évolution dans le temps.
-- Paramétrage avancé — personnalisation des facteurs d'émission et profils utilisateurs.
+* **Calculateur de bilan personnel :** Questionnaire adaptatif pour estimer l'impact des Transports, du Logement et de l'Alimentation.
+
+* **Module Impact IA :** Calculateur dédié évaluant le coût carbone, énergétique (kWh) et hydrique (litres d'eau) de l'usage des LLMs, générateurs d'images/vidéos et infrastructures Cloud (GPU).
+
+* **Blog Environnemental :** Espace d'articles documentés et sourcés rédigés par l'équipe, traitant des enjeux climatiques et de la sobriété numérique.
 
 ## Sources & Rigueur
 
-Les calculs s'appuient sur des sources publiques et traçables. Exemples :
+L'intégralité du moteur de calcul repose sur des données de référence vérifiables et documentées. Chaque facteur d'émission (FE) utilisé dans l'application est strictement tracé depuis des sources officielles et scientifiques :
 
-- ADEME (Nos Gestes Climat, Agribalyse)
-- Rapports fournisseurs cloud (Google, AWS, Azure)
-- Travaux et estimateurs d'impact IA (articles et outils publics)
+* **Bilan Personnel :** Base Empreinte de l'ADEME et modèle de calcul ouvert Nos Gestes Climat.
 
-Chaque facteur d'émission est versionné et peut être revu pour transparence.
+* **Alimentation :** Base de données Agribalyse (ADEME).
+
+* **Impact IA & Cloud :** AI Impact Calculator, rapports ESG des fournisseurs Cloud (Google, AWS, Azure), et littérature scientifique (notamment les travaux de S. Luccioni - Hugging Face).
 
 ## Architecture
 
-Application organisée en couches (séparation des responsabilités) :
+L'application est construite autour d'une architecture N-Tier (Clean Architecture) respectant une séparation stricte des responsabilités en couches :
 
-- Présentation (Next.js app/router)
-- Domaine / Services (logique métier, calculs)
-- Persistance (stockage des facteurs et historiques)
+* **Couche Présentation (UI/Routes) :** N'effectue aucun calcul.
+
+* **Couche Domaine / Service :** Contient toute la logique métier et les règles de calcul mathématiques. Indépendante des frameworks d'interface.
+
+* **Couche Persistance (Dépôts/Bases) :** Gère l'accès aux données (facteurs d'émission stockés localement).
 
 ## Stack technique
 
-- Langage : TypeScript
-- Framework : Next.js (App Router)
-- Déploiement suggéré : Vercel
+* **Langage :** TypeScript
 
-## Installation & Démarrage
+* **Persistance des données :** Fichiers JSON locaux
 
-Pré-requis : Node.js v18+ et npm/yarn/pnpm
+## Installation & Démarrage local
 
-1. Cloner le dépôt :
+Prérequis :
+
+* **Node.js (v18+)**
+
+* **npm, yarn ou pnpm**
+
+Cloner le dépôt :
 
 ```bash
-git clone https://github.com/Tyrdak/Ecologs.git
+git clone -b Core https://github.com/Tyrdak/Ecologs.git
 cd Ecologs
-# si besoin : récupérer la branche Core
-git fetch origin
-git switch Core || git checkout -b Core origin/Core
 ```
-
-2. Installer les dépendances :
+Installer les dépendances :
 
 ```bash
 npm install
-# ou
-# yarn
-# pnpm install
 ```
 
-3. Lancer le serveur de développement :
+Lancer le serveur de développement :
 
 ```bash
 npm run dev
-# ou
-# yarn dev
-# pnpm dev
 ```
-
-Ouvrir http://localhost:3000
-
-## Déploiement
-
-Déployer sur Vercel pour un déploiement Next.js sans configuration lourde, ou tout autre fournisseur compatible.
-
-## Contribuer
-
-Les contributions sont bienvenues :
-
-- Ouvrir une issue pour discuter d'une amélioration ou d'un bug.
-- Créer une branche feature/bugfix, ajouter des tests si possible, puis ouvrir une Pull Request.
-
-Respecter la séparation des responsabilités (UI vs logique métier) et documenter les changements.
 
 ## Licence
 
-Ce projet est distribué sous la licence MIT. Voir le fichier [LICENSE](LICENSE) pour le texte complet.
+Ce projet est distribué sous la licence MIT.
