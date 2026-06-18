@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap");
+@import "tailwindcss";
+
+:root {
+  --bg:          #F6F4EF;
+  --bg-alt:      #EDEAE3;
+  --bg-card:     #FDFCF9;
+  --green-deep:  #1A3629;
+  --green-mid:   #2D6A4F;
+  --green-light: #74B49B;
+  --gold:        #C5975A;
+  --text:        #1A2D22;
+  --text-muted:  #5C7066;
+  --border:      #D6D0C4;
+  --white:       #FDFCF9;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--green-deep);
+  border: 3px solid var(--bg-card);
+  box-shadow: 0 0 0 1px var(--green-deep);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes barGrow {
+  from { width: 0; }
+}
+
+.anim-fade-up  { animation: fadeUp  0.55s cubic-bezier(.22,1,.36,1) both; }
+.anim-fade-in  { animation: fadeIn  0.4s ease both; }
+.anim-scale-in { animation: scaleIn 0.45s cubic-bezier(.22,1,.36,1) both; }
+.anim-bar      { animation: barGrow 0.8s cubic-bezier(.22,1,.36,1) both; }
+
+.d1  { animation-delay: 0.08s; }
+.d2  { animation-delay: 0.16s; }
+.d3  { animation-delay: 0.24s; }
+.d4  { animation-delay: 0.32s; }
+.d5  { animation-delay: 0.40s; }
+.d6  { animation-delay: 0.48s; }

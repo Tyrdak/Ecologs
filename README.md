@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  
+# Ecologs - Calculateur d'Empreinte Carbone & Impact IA
 
-## Getting Started
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-78.1%25-purple?logo=typescript)](https://www.typescriptlang.org/) 
+[![Data: Nos Gestes Climat](https://img.shields.io/badge/Data-Nos%20Gestes%20Climat-green)](https://github.com/incubateur-ademe/nosgestesclimat/tree/main/data) 
+[![Data: Base Empreinte ADEME](https://img.shields.io/badge/Data-Base%20Empreinte%20ADEME-blue)](https://base-empreinte.ademe.fr/)
 
-First, run the development server:
+</div>
+
+Ecologs est une application permettant d'estimer l'empreinte carbone annuelle d'un utilisateur en décomposant son bilan personnel (Transports, Logement, Alimentation) et en y intégrant un module d'évaluation de l'impact des usages d'IA (LLMs, génération d'images/vidéos, infrastructure cloud).
+
+## Table des matières 
+
+- [Fonctionnalités principales](#fonctionnalités-principales)
+
+- [Sources & Rigueur](#sources--rigueur)
+
+- [Architecture](#architecture)
+
+- [Stack technique](#stack-technique)
+
+- [Installation & Démarrage local](#installation--démarrage-local)
+
+- [Licence](#licence) 
+
+## Fonctionnalités principales
+
+* **Calculateur de bilan personnel :** Questionnaire adaptatif pour estimer l'impact des Transports, du Logement et de l'Alimentation.
+
+* **Module Impact IA :** Calculateur dédié évaluant le coût carbone, énergétique (kWh) et hydrique (litres d'eau) de l'usage des LLMs, générateurs d'images/vidéos et infrastructures Cloud (GPU).
+
+* **Blog Environnemental :** Espace d'articles documentés et sourcés rédigés par l'équipe, traitant des enjeux climatiques et de la sobriété numérique.
+
+## Sources & Rigueur
+
+L'intégralité du moteur de calcul repose sur des données de référence vérifiables et documentées. Chaque facteur d'émission (FE) utilisé dans l'application est strictement tracé depuis des sources officielles et scientifiques :
+
+* **Bilan Personnel :** Base Empreinte de l'ADEME et modèle de calcul ouvert Nos Gestes Climat.
+
+* **Alimentation :** Base de données Agribalyse (ADEME).
+
+* **Impact IA & Cloud :** AI Impact Calculator, rapports ESG des fournisseurs Cloud (Google, AWS, Azure), et littérature scientifique (notamment les travaux de S. Luccioni - Hugging Face).
+
+## Architecture
+
+L'application est construite autour d'une architecture N-Tier (Clean Architecture) respectant une séparation stricte des responsabilités en couches :
+
+* **Couche Présentation (UI/Routes) :** N'effectue aucun calcul.
+
+* **Couche Domaine / Service :** Contient toute la logique métier et les règles de calcul mathématiques. Indépendante des frameworks d'interface.
+
+* **Couche Persistance (Dépôts/Bases) :** Gère l'accès aux données (facteurs d'émission stockés localement).
+
+## Stack technique
+
+* **Langage :** TypeScript
+
+* **Persistance des données :** Fichiers JSON locaux
+
+## Installation & Démarrage local
+
+Prérequis :
+
+* **Node.js (v18+)**
+
+* **npm, yarn ou pnpm**
+
+Cloner le dépôt :
+
+```bash
+git clone -b Core https://github.com/Tyrdak/Ecologs.git
+cd Ecologs
+```
+Installer les dépendances :
+
+```bash
+npm install
+```
+
+Lancer le serveur de développement :
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Licence
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ce projet est distribué sous la [licence MIT](LICENSE).
