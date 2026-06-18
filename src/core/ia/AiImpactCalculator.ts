@@ -10,7 +10,7 @@ import { getProviderConfig, getCarbonIntensity, calcUsageImpact } from "./step4-
 import { AiRequestInput, AiImpactResult } from "./types";
 
 export function calcAiImpact(input: AiRequestInput): AiImpactResult {
-    // Étape 1 : résolution du modèle → VRAM → serveur
+    // Étape 1 : résolution du modèle -> VRAM -> serveur 
     const model = resolveModel(input.provider, input.model);
     if (!model) throw new Error(`Modèle inconnu : ${input.provider}/${input.model}`);
 

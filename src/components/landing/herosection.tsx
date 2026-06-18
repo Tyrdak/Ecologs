@@ -15,7 +15,7 @@ export default function HeroSection({ onStart }: Props) {
                 className="text-sm font-medium tracking-widest uppercase mb-6"
                 style={{ color: "var(--green-mid)", letterSpacing: "0.15em" }}
             >
-                Calculateur d'empreinte carbone
+                Calculateur d&apos;empreinte carbone
             </p>
             <h1
                 className="mb-6 leading-tight"
@@ -33,16 +33,17 @@ export default function HeroSection({ onStart }: Props) {
                 className="mb-10 text-base md:text-lg"
                 style={{ color: "var(--text-muted)", maxWidth: "520px", lineHeight: 1.7 }}
             >
-                Estimez l'impact climatique de vos habitudes quotidiennes
-                et de votre usage de l'IA en quelques minutes.
+                Estimez l&apos;impact climatique de vos habitudes quotidiennes
+                et de votre usage de l&apos;IA en quelques minutes.
             </p>
             <button
                 onClick={onStart}
                 className="flex items-center gap-2 px-8 py-4 rounded-full text-base font-semibold"
                 style={{ background: "var(--green-deep)", color: "var(--white)" }}
+                aria-label="Ouvrir le calculateur"
             >
                 Commencer le calcul
-                <ArrowRight size={18} />
+                <ArrowRight size={18} aria-hidden="true" />
             </button>
         </section>
     );
